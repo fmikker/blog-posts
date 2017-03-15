@@ -1,3 +1,9 @@
+---
+layout: post
+title:  "Mount samba share with autofs"
+date:   2017-03-15 19:56:00 +0100
+tags: linux,filesystem,configuration,fedora
+---
 
 This post describes how to configure autofs to automatically mount a CIFS volume in Fedora 25. This is useful when having a network share that you access regularly close by.
 

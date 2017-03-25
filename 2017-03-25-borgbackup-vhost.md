@@ -28,6 +28,38 @@ It's nothing complicated, basically the installation consists of these tasks:
 * Create a [exclude-file](https://github.com/fmikker/backup-utils/blob/master/borgbackup/.borgexcludes) for directiories that does not make sense to back up.
 * Create a cron-job to run the backup daily `5 3 * * * root /root/bin/borgbackup-root.sh 2>&1`
 
+
+## Example
+
+Running a initial backup on the entire root filesystem on my vhost that utilizes ~60GB of disk took about one hour to complete via a 10mbit connection to my backup location.
+I used the compression option `zlib,9` which is the highest compression for the compression type on a dual core VM.
+Haven't done any benchmarking against the other compression techniques since they are not compatible, so I guess I'll stick with zlib for the time being until I have some more data to go on.
+
+Paraphrazing one of the developers "lzma? That's like doing a burn-in of your cpu"
+
+```
+# time ./borgbackup-root.sh 
+------------------------------------------------------------------------------
+Archive name: hostname-2017-03-25
+Archive fingerprint:<REDACTED> 
+Time (start): Sat, 2017-03-25 20:48:10
+Time (end):   Sat, 2017-03-25 22:01:52
+Duration: 1 hours 13 minutes 41.47 seconds
+Number of files: 115219
+------------------------------------------------------------------------------
+                       Original size      Compressed size    Deduplicated size
+This archive:               62.63 GB             58.91 GB             34.11 GB
+All archives:               62.63 GB             58.91 GB             34.11 GB
+
+                       Unique chunks         Total chunks
+Chunk index:                   90123               137002
+------------------------------------------------------------------------------
+
+real    73m52.061s
+user    44m47.577s
+sys     1m23.108s
+```
+
 # Conclusion
 This deployment isn't anything fancy, but I belive that it will do the job to backup my server and desktop computer(s) to my backup server in a efficient way.
 

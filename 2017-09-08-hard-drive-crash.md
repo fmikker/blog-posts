@@ -142,8 +142,7 @@ To make sure that all the data on the failed drive is impossible (or at least ve
 This will be done in three steps:
 * Overwriting the drive with zeros from /dev/zero using dd (dd_rescue in this case)
 * Encrypting the drive with dmcrypt/luks
-* Overwrite the drive with zeros from /dev/zero anew
-
+* Removing the key from the drive, making recovery practically impossible 
 ```
 # dd_rescue -A /dev/zero /dev/sde -b 512 -B 64
 root@home ~]# dd_rescue -A /dev/zero /dev/sde -b 512 -B 64
@@ -156,8 +155,12 @@ dd_rescue: (info): ipos: 378856528.0k, opos: 378856528.0k, xferd: 378856528.0k
 ### Cryptsetup (luKS)
 To make sure that the residual data on the drive shoud be as hard as possible to recover I will also encrypt the device with a long random generated password, and then remove the key from the drive, which will make the data even harder to recover.
 <FIXME>
+* Use binary file as key 
+* Store it on tmpfs while encrypting/decrypting
+* Copy to secure location for persistant storage
+* umount tmpfs
 
-
+https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption#Keyfiles
 
 
 ## Final words

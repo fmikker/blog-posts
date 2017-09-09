@@ -2,8 +2,8 @@
 layout: post
 title:  "Raspberry Pi as a Tor relay"
 date:   2016-04-22 00:22:30 +0200
-categories: privacy
-tags: integrity,privacy,tor,raspberrypi
+categories: privacy, nerdstuff
+tags: integrity privacy tor raspberrypi
 ---
 
 I just configured a Raspberry PI to be used as a TOR-relay following the guide created by [DFRI](https://dfri.se), with the guide: [DFRIpi](https://github.com/DFRI/dfri-rpi-tor).  

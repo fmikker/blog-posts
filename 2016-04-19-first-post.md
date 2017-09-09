@@ -2,7 +2,8 @@
 layout: post
 title:  "First post!"
 date:   2016-04-19 19:56:30 +0200
-categories: blog software
+categories: nerdstuff
+tags: blog software nerdstuff
 ---
 This is the first post created with [jekyll](https://jekyllrb.com/), a new static html generator I will use to create my blog.
 

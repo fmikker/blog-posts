@@ -3,7 +3,7 @@ layout: post
 title:  "The night of the vampire"
 date:   2016-04-21 00:22:30 +0200
 categories: music
-tags: music,gigs
+tags: music gigs
 ---
 
 Tonight, Roky Erickson plays 13'th floor elevators.

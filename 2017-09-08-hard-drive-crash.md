@@ -118,7 +118,7 @@ Error 115 occurred at disk power-on lifetime: 38730 hours (1613 days + 18 hours)
 
 Since these are read-errors I don't know how serious they really are - but I'm not taking any chances. 
 
-## Data resque and mounting the drive read-only
+## Data rescue and mounting the drive read-only
 To make as little additional damage as possible to the drive I remounted the drive in read-only mode as soon as I saw the error above. If I've had the storage space to create an image of the drive I would have done that, but unfortunely I don't have any >3GB drive on the shelf, so I'll make do with what I have.
 ```
 # mount -o remount,ro /dev/sde1
@@ -143,6 +143,7 @@ This will be done in three steps:
 * Overwriting the drive with zeros from /dev/zero using dd (dd_rescue in this case)
 * Encrypting the drive with dmcrypt/luks
 * Removing the key from the drive, making recovery practically impossible 
+
 ```
 # dd_rescue -A /dev/zero /dev/sde -b 512 -B 64
 root@home ~]# dd_rescue -A /dev/zero /dev/sde -b 512 -B 64
@@ -160,7 +161,10 @@ To make sure that the residual data on the drive shoud be as hard as possible to
 * Copy to secure location for persistant storage
 * umount tmpfs
 
-https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption#Keyfiles
+Use a binary file as keyfile: https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption#Keyfiles
+
+
+<FIXME> Remove key from the device making it impossible to decrypt
 
 
 ## Final words

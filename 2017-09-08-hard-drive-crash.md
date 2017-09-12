@@ -141,18 +141,21 @@ After a while I found another application that tries to solve the same problem c
 To make sure that all the data on the failed drive is impossible (or at least very hard) to recover, I will do my best to assure that nobody can access the data that has resided on the drive.
 This will be done in three steps:
 * Overwriting the drive with zeros from /dev/zero using dd (dd_rescue in this case)
-* Encrypting the drive with dmcrypt/luks
-* Removing the key from the drive, making recovery practically impossible 
+* Do another pass with dd_rescue, this time with random data from /dev/urandom as the source
 
 ```
-# dd_rescue -A /dev/zero /dev/sde -b 512 -B 64
-root@home ~]# dd_rescue -A /dev/zero /dev/sde -b 512 -B 64
-dd_rescue: (info): Using softbs=0.5kiB, hardbs=0.1kiB
-dd_rescue: (info): ipos: 378856528.0k, opos: 378856528.0k, xferd: 378856528.0k
-                   errs:      0, errxfer:         0.0k, succxfer: 378856528.0k
-             +curr.rate:    22247kB/s, avg.rate:    27226kB/s, avg.load: 39.2%
+dd_rescue -A /dev/urandom /dev/sde -b 100M -B 512
+dd_rescue: (info): Using softbs=102400.0kiB, hardbs=0.5kiB
+dd_rescue: (info): ipos: 211353600.0k, opos: 211353600.0k, xferd: 211353600.0k
+                   errs:      0, errxfer:         0.0k, succxfer: 211353600.0k
+             +curr.rate:    10011kB/s, avg.rate:    10195kB/s, avg.load:011.+%
 
 ```
+The throughput is about 10Mib/sec, from what I can tell it is because the cpu in the server is really slow. 
+* CPU: AMD Turion(tm) II Neo N54L Dual-Core Processor
+
+
+# DRAFT!!!!
 ### Cryptsetup (luKS)
 To make sure that the residual data on the drive shoud be as hard as possible to recover I will also encrypt the device with a long random generated password, and then remove the key from the drive, which will make the data even harder to recover.
 <FIXME>

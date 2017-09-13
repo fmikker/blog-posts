@@ -8,13 +8,13 @@ categories: hardware security crash zfs luks
 Sometime it just happens, again.
 
 I've been down this road a few times before and lost a lot of pictures, music, documents and other stuff that I would like to kept, but hard drives fail, it is just a matter of time before you loose some important data, if you don't follow these three simple steps:
-1. Backup your data, preferrably on a remote location
-2. Use RAID or use a filesystem that prevents bit-rot and have autocorrection features such as btrfs or ZFS. RAID/ZFS/btrfs is NOT a substitute for backups
+1. Backup your data, preferably on a remote location
+2. Use RAID or use a file system that prevents bit-rot and have auto correction features such as btrfs or ZFS. RAID/ZFS/btrfs is NOT a substitute for backups
 3. See #1
 
 So, did I follow these simple rules? Of course not.
 
-However, since I monitor my hard drives with [smartmontools](https://en.wikipedia.org/wiki/Smartmontools) and sends the system logs to a remote logserver with notification posibilities I got a heads up pretty early when the drive started to crumble.
+However, since I monitor my hard drives with [smartmontools](https://en.wikipedia.org/wiki/Smartmontools) and sends the system logs to a remote logserver with notification possibilities I got a heads up pretty early when the drive started to crumble.
 
 It started with a message about the drive was getting full:
 _op5 Monitor
@@ -56,7 +56,7 @@ sep 08 17:20:52 zaphod smartd[10844]: Device: /dev/sde [SAT], 584 Offline uncorr
 The issue started just about when I was saving some data from my laptop to the server which almost filled up the drive `/dev/sde1`, and this was the last drop that the drive could take.
 
 ### Drive information
-This is the bugger that failed me. A 3TB Seagate desktop drive that has been along for about five years, so I'm not that suprised that it gave up. It has been spinning pretty much all its life, and it has preformed pretty well during its lifetime.
+This is the bugger that failed me. A 3TB Seagate desktop drive that has been along for about five years, so I'm not that surprised that it gave up. It has been spinning pretty much all its life, and it has preformed pretty well during its lifetime.
 
 ***Disk lifetime:***
 _Hours:_38730
@@ -119,7 +119,7 @@ Error 115 occurred at disk power-on lifetime: 38730 hours (1613 days + 18 hours)
 Since these are read-errors I don't know how serious they really are - but I'm not taking any chances. 
 
 ## Data rescue and mounting the drive read-only
-To make as little additional damage as possible to the drive I remounted the drive in read-only mode as soon as I saw the error above. If I've had the storage space to create an image of the drive I would have done that, but unfortunely I don't have any >3GB drive on the shelf, so I'll make do with what I have.
+To make as little additional damage as possible to the drive I remounted the drive in read-only mode as soon as I saw the error above. If I've had the storage space to create an image of the drive I would have done that, but unfortunately  I don't have any >3GB drive on the shelf, so I'll make do with what I have.
 ```
 # mount -o remount,ro /dev/sde1
 ```
@@ -132,9 +132,9 @@ And start copying the data off the drive to multiple locations whereever I can f
 
 ## tmux and mosh
 Down the road when the ssh-connection started lagging I decided to give [mosh](https://mosh.org/) a shot. This in turn gave me an excuse to give the long neglected application called  [tmux](https://wiki.archlinux.org/index.php/Tmux) a shot due to a [bug in mosh](https://github.com/mobile-shell/mosh/issues/122). 
-Tmux didn't really solve my issues, but it is a really nifty tool that is easier to user than Gnu Screen in my opionion. It also has a lot of nifty features such as [powerline support](https://github.com/powerline/powerline) and [advanced configuration possibilities](https://github.com/tmuxinator/tmuxinator) which gave me something new to fiddle with while I was wating on extracting the data from the failed drive.
+Tmux didn't really solve my issues, but it is a really nifty tool that is easier to user than Gnu Screen in my opinion. It also has a lot of nifty features such as [powerline support](https://github.com/powerline/powerline) and [advanced configuration possibilities](https://github.com/tmuxinator/tmuxinator) which gave me something new to fiddle with while I was waiting on extracting the data from the failed drive.
 
-After a while I found another application that tries to solve the same problem called [Eternal Terminal](https://mistertea.github.io/EternalTCP/), but I haven't tried that uout yet, might mention it in an upcoming post if it works good.
+After a while I found another application that tries to solve the same problem called [Eternal Terminal](https://mistertea.github.io/EternalTCP/), but I haven't tried that yet, might mention it in an upcoming post if it works good.
 
 ## Wiping the failed drive
 
@@ -155,26 +155,17 @@ The throughput is about 10Mib/sec, from what I can tell it is because the cpu in
 * CPU: AMD Turion(tm) II Neo N54L Dual-Core Processor
 
 
-# DRAFT!!!!
-### Cryptsetup (luKS)
-To make sure that the residual data on the drive shoud be as hard as possible to recover I will also encrypt the device with a long random generated password, and then remove the key from the drive, which will make the data even harder to recover.
-<FIXME>
-* Use binary file as key 
-* Store it on tmpfs while encrypting/decrypting
-* Copy to secure location for persistant storage
-* umount tmpfs
 
 Use a binary file as keyfile: https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption#Keyfiles
 
 
-<FIXME> Remove key from the device making it impossible to decrypt
 
 
 ## Final words
-Hard drive crashes are not just evil, they gives you a chance to get a fresh start and clean out [Tumbleweed](https://en.wikipedia.org/wiki/Tumbleweed) from your hard drive andget some fresh data on that new shiny drive!
+Hard drive crashes are not just evil, they gives you a chance to get a fresh start and clean out [Tumbleweed](https://en.wikipedia.org/wiki/Tumbleweed) from your hard drive and get some fresh data on that new shiny drive!
 It can also be used to learn something about hardware, software, backup-routines and how avoid doing the same mistake again (3 hard drive failures and counting..), to create a fault-tolerant and stable storage solution that can withstand a hard drive crash with good backup routines and system monitoring.
 
-ZFS has a lot to offer, and I'm just skimming on the surface to get a mirrored setup going for now, but I will continue to explore the possibilites, caveats and quirks. 
+ZFS has a lot to offer, and I'm just skimming on the surface to get a mirrored setup going for now, but I will continue to explore the possibility, caveats and quirks. 
 I'll also be looking closer at [BTRFS](https://en.wikipedia.org/wiki/Btrfs) / [Archlinux wiki](https://wiki.archlinux.org/index.php/Btrfs) to see what it has to offer in the future.
 Btrfs could handle a mirrored setup (raid1) without any major issues, but ZFS is more mature and has more to offer for now.
 

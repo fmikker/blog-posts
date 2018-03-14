@@ -2,19 +2,19 @@
 layout: post
 title:  "Hard drive crashes and learning from mistakes"
 date:   2017-09-09 18:56:30 +0200
-categories: hardware security crash zfs luks
+categories: hardware security crash zfs
 ---
 
-Sometime it just happens, again.
+Sometimes it just happens, again.
 
 I've been down this road a few times before and lost a lot of pictures, music, documents and other stuff that I would like to kept, but hard drives fail, it is just a matter of time before you loose some important data, if you don't follow these three simple steps:
 1. Backup your data, preferably on a remote location
-2. Use RAID or use a file system that prevents bit-rot and have auto correction features such as btrfs or ZFS. RAID/ZFS/btrfs is NOT a substitute for backups
+2. Use RAID or use a file system that prevents [bit-rot](https://www.huffingtonpost.com/michael-ernest-sweet/bit-rot-and-a-few-other-r_b_7709462.html) and have auto correction features such as btrfs or ZFS. RAID/ZFS/btrfs is _NOT_ a substitute for backups
 3. See #1
 
 So, did I follow these simple rules? Of course not.
 
-However, since I monitor my hard drives with [smartmontools](https://en.wikipedia.org/wiki/Smartmontools) and sends the system logs to a remote logserver with notification possibilities I got a heads up pretty early when the drive started to crumble.
+However, since I monitor my hard drives with [smartmontools](https://en.wikipedia.org/wiki/Smartmontools) and sends the system logs to a [monitoring system](https://www.huffingtonpost.com/michael-ernest-sweet/bit-rot-and-a-few-other-r_b_7709462.html) with notification possibilities I got a heads up pretty early when the drive started to crumble.
 
 It started with a message about the drive was getting full:
 _op5 Monitor
@@ -56,7 +56,7 @@ sep 08 17:20:52 zaphod smartd[10844]: Device: /dev/sde [SAT], 584 Offline uncorr
 The issue started just about when I was saving some data from my laptop to the server which almost filled up the drive `/dev/sde1`, and this was the last drop that the drive could take.
 
 ### Drive information
-This is the bugger that failed me. A 3TB Seagate desktop drive that has been along for about five years, so I'm not that surprised that it gave up. It has been spinning pretty much all its life, and it has preformed pretty well during its lifetime.
+This is the bugger that failed me. A 3TB Seagate desktop drive that has been along for about five years, so I'm not that surprised that it gave up. It has been spinning pretty much all its life, and it has performed pretty well during its lifetime.
 
 ***Disk lifetime:***
 _Hours:_38730
@@ -156,10 +156,6 @@ The throughput is about 10Mib/sec, from what I can tell it is because the cpu in
 
 
 
-Use a binary file as keyfile: https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption#Keyfiles
-
-
-
 
 ## Final words
 Hard drive crashes are not just evil, they gives you a chance to get a fresh start and clean out [Tumbleweed](https://en.wikipedia.org/wiki/Tumbleweed) from your hard drive and get some fresh data on that new shiny drive!
@@ -171,10 +167,8 @@ Btrfs could handle a mirrored setup (raid1) without any major issues, but ZFS is
 
 
 Do you remember how many uncorrectable sectors that was listed in the inital error message in the beginning? You don't?
-Well, to save your wrists the pain to scroll to the top of the page I'll just spell it out: `sep 08 16:20:51 zaphod smartd[10844]: Device: /dev/sde [SAT], 160 Offline uncorrectable sectors`
+Well, to save your joints the pain to scroll to the top of the page I'll just spell it out: `sep 08 16:20:51 zaphod smartd[10844]: Device: /dev/sde [SAT], 160 Offline uncorrectable sectors`
 Now when I've almost filled the drive with zeros, the count has gone up quite a bit when the writes comes closer to the sectors that produced the first error: 
-
-<FIXME>
 
 ```
 sep 09 15:20:52 zaphod smartd[10844]: Device: /dev/sde [SAT], 2640 Currently unreadable (pending) sectors

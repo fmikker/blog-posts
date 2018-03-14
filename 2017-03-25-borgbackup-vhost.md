@@ -8,7 +8,7 @@ tags: linux,backup,server
 [logo] https://borgbackup.readthedocs.io/en/stable/_static/logo.png
 
 # About
-I have been curious about the backup tool [borgbackup](https://github.com/borgbackup) for a while and I finally took the time to replace my [rsync](https://rsync.samba.org/) backup solution with something that has the feature set that I want in a backup tool and something that I think I can trust. I have trust issues with rsync, and I don't see it as a backup tool, but rather a file transfer application.
+I have been curious about the backup tool [borgbackup](https://github.com/borgbackup) for a while and I finally took the time to replace my [rsync](https://rsync.samba.org/) backup solution with something that has the feature set that I want in a backup tool and something that I think I can trust. I have trust issues with rsync, and it is not really a backup tool, just a file sync tool.
 The main [feature set](https://borgbackup.readthedocs.io/en/stable/index.html?highlight=features) in borg that I'm interested in is:
 * Compression (lz4, lzma and zlib)
 * Encryption (AES-256)
